@@ -1,0 +1,9 @@
+/*!
+ * html5-boilerplate
+ * 
+ * 
+ * @author 
+ * @version 5.2.0
+ * Copyright 2015. [object Object] licensed.
+ */
+{"version":3,"sources":["main.js"],"names":["onEmailChange","e","console","log","email","document","getElementById","addEventListener"],"mappings":"AAQA,QAASA,eAAcC,GAAGC,QAAQC,IAAI,WAAW,GAAIC,OAAMC,SAASC,eAAe,QAASF,OAAMG,iBAAiB,WAAWP","file":"main.js","sourcesContent":["/*!\n * html5-boilerplate\n *\n *\n * @author\n * @version 5.2.0\n * Copyright 2015. [object Object] licensed.\n */\nfunction onEmailChange(e){console.log(\"changed\")}var email=document.getElementById(\"email\");email.addEventListener(\"onchange\",onEmailChange);\n//# sourceMappingURL=main.js.map\n"],"sourceRoot":"/source/"}

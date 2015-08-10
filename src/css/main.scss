@@ -1,0 +1,168 @@
+/* CSS reset and some normalization */
+@import 'normalize';
+
+/* Bootstrap grid */
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/clearfix";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid-framework";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+
+
+/* Mixins */
+@import "mixins";
+
+/* Helpers */
+@import "helper";
+
+
+html {
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* ==========================================================================
+   Custom styles
+   ========================================================================== */
+
+h1 {
+    font-size: 6rem;
+}
+h2 {
+    font-size: 2rem;
+    @include md {
+        font-size: 3rem;
+    }
+}
+
+p {
+    line-height: 1.5em;
+    letter-spacing: 0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: cornflowerblue;
+    &:hover, &:focus {
+        border-bottom: 1px solid;
+    }
+}
+
+a.fancy-underline{
+    box-shadow: 0 1px;
+    transition: box-shadow 0.25s;
+}
+a.fancy-underline:hover {
+    box-shadow: 0 2px;
+}
+
+img {
+    width: 100%;
+}
+
+.heading {
+    margin-bottom: 30px;
+    .title {
+        img {
+            width: 400px;
+            margin: 1em;
+        }
+    }
+    .subtitle {
+        margin-bottom: 30px;
+    }
+}
+
+.portfolio-items {
+    .portfolio-item {
+        margin-bottom: 60px;
+        .image{
+        }
+        .copy {
+            padding: 2em;
+            h2 {
+                margin-bottom: 0.3em;
+            }
+            p {
+                padding: 0 3em;
+            }
+        }
+    }
+}
+
+
+.footer {
+    padding-top: 3em;
+    > div {
+        margin-bottom: 4em;
+    }
+    li {
+        margin-bottom: 0.3rem;
+    }
+    .social {
+        margin-top: -0.8em;
+    }
+    .subscribe {
+        label {
+            margin-right: 0.5em;
+        }
+        input.subscribe-email {
+            border: none;
+            border-bottom: 1px solid black;
+            font-size: 1rem;
+            outline: none;
+            &:focus {
+                border-bottom: 1px solid rgb(56, 238, 127);
+            }
+            &:invalid {
+                border-bottom: 1px solid rgb(238, 83, 51);
+            }
+        }
+        .submit-button{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-border-radius: 0;
+            border-radius: 0;
+            border: none;
+            padding: 0;
+            background: url(../img/icons/tick.svg) center center no-repeat;
+            width: 30px;
+            height: 13px;
+            background-size: 60%;
+            display: none;
+        }
+    }
+}
+
+// PLACEHOLDER FIX
+::-webkit-input-placeholder {
+    color: #DDD;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: #DDD;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #DDD;
+}
+:-ms-input-placeholder {
+    color: #DDD;
+}
+
+
+
+//OLD
+.social-icon{
+    width: 60px;
+}
+svg.ring {
+    fill: red;
+}
+
+.row.github {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
