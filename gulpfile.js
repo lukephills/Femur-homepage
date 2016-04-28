@@ -1,213 +1,175 @@
-var fs = require('fs');
-var path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var browserSync = require('browser-sync');
-var autoprefixer = require('gulp-autoprefixer');
-var uglify = require('gulp-uglify');
-var header  = require('gulp-header');
-var rename = require('gulp-rename');
-var minifyCSS = require('gulp-minify-css');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var package = require('./package.json');
+import gulp from 'gulp';
 
 // Load all gulp plugins automatically
 // and attach them to the `plugins` object
-var plugins = require('gulp-load-plugins')();
+import plugins from 'gulp-load-plugins';
 
 // Temporary solution until gulp 4
 // https://github.com/gulpjs/gulp/issues/355
-var runSequence = require('run-sequence');
+import runSequence from 'run-sequence';
 
-var pkg = require('./package.json');
-var dirs = pkg['h5bp-configs'].directories;
+import archiver from 'archiver';
+import glob from 'glob';
+import del from 'del';
+
+import pkg from './package.json';
+
+const dirs = pkg['h5bp-configs'].directories;
 
 // ---------------------------------------------------------------------
 // | Helper tasks                                                      |
 // ---------------------------------------------------------------------
 
-gulp.task('archive:create_archive_dir', function () {
+gulp.task('archive:create_archive_dir', () => {
     fs.mkdirSync(path.resolve(dirs.archive), '0755');
 });
 
-gulp.task('archive:zip', function (done) {
+gulp.task('archive:zip', (done) => {
 
-    var archiveName = path.resolve(dirs.archive, pkg.name + '_v' + pkg.version + '.zip');
-    var archiver = require('archiver')('zip');
-    var files = require('glob').sync('**/*.*', {
-        'cwd': dirs.dist,
-        'dot': true // include hidden files
-    });
-    var output = fs.createWriteStream(archiveName);
+    const archiveName = path.resolve(dirs.archive, `${pkg.name}_v${pkg.version}.zip`);
+const zip = archiver('zip');
+const files = glob.sync('**/*.*', {
+    'cwd': dirs.dist,
+    'dot': true // include hidden files
+});
+const output = fs.createWriteStream(archiveName);
 
-    archiver.on('error', function (error) {
-        done();
-        throw error;
-    });
+zip.on('error', (error) => {
+    done();
+throw error;
+});
 
-    output.on('close', done);
+output.on('close', done);
 
-    files.forEach(function (file) {
+files.forEach( (file) => {
 
-        var filePath = path.resolve(dirs.dist, file);
+    const filePath = path.resolve(dirs.dist, file);
 
-        // `archiver.bulk` does not maintain the file
-        // permissions, so we need to add files individually
-        archiver.append(fs.createReadStream(filePath), {
-            'name': file,
-            'mode': fs.statSync(filePath)
-        });
-
-    });
-
-    archiver.pipe(output);
-    archiver.finalize();
+// `zip.bulk` does not maintain the file
+// permissions, so we need to add files individually
+zip.append(fs.createReadStream(filePath), {
+    'name': file,
+    'mode': fs.statSync(filePath).mode
+});
 
 });
 
-gulp.task('clean', function (done) {
-    require('del')([
+zip.pipe(output);
+zip.finalize();
+
+});
+
+gulp.task('clean', (done) => {
+    del([
         dirs.archive,
         dirs.dist
-    ], done);
+    ]).then( () => {
+    done();
+});
 });
 
 gulp.task('copy', [
     'copy:.htaccess',
+    'copy:index.html',
+    'copy:jquery',
     'copy:license',
     'copy:main.css',
-    'copy:misc'
+    'copy:misc',
+    'copy:normalize'
 ]);
 
-gulp.task('copy:.htaccess', function () {
-    return gulp.src('node_modules/apache-server-configs/dist/.htaccess')
-        .pipe(plugins.replace(/# ErrorDocument/g, 'ErrorDocument'))
-        .pipe(gulp.dest(dirs.dist));
+gulp.task('copy:.htaccess', () =>
+gulp.src('node_modules/apache-server-configs/dist/.htaccess')
+    .pipe(plugins().replace(/# ErrorDocument/g, 'ErrorDocument'))
+    .pipe(gulp.dest(dirs.dist))
+);
+
+gulp.task('copy:index.html', () =>
+gulp.src(`${dirs.src}/index.html`)
+    .pipe(plugins().replace(/{{JQUERY_VERSION}}/g, pkg.devDependencies.jquery))
+    .pipe(gulp.dest(dirs.dist))
+);
+
+gulp.task('copy:jquery', () =>
+gulp.src(['node_modules/jquery/dist/jquery.min.js'])
+    .pipe(plugins().rename(`jquery-${pkg.devDependencies.jquery}.min.js`))
+    .pipe(gulp.dest(`${dirs.dist}/js/vendor`))
+);
+
+gulp.task('copy:license', () =>
+gulp.src('LICENSE.txt')
+    .pipe(gulp.dest(dirs.dist))
+);
+
+gulp.task('copy:main.css', () => {
+
+    const banner = `/*! HTML5 Boilerplate v${pkg.version} | ${pkg.license.type} License | ${pkg.homepage} */\n\n`;
+
+gulp.src(`${dirs.src}/css/main.css`)
+    .pipe(plugins().header(banner))
+    .pipe(plugins().autoprefixer({
+        browsers: ['last 2 versions', 'ie >= 8', '> 1%'],
+        cascade: false
+    }))
+    .pipe(gulp.dest(`${dirs.dist}/css`));
 });
 
-gulp.task('copy:license', function () {
-    return gulp.src('LICENSE.txt')
-        .pipe(gulp.dest(dirs.dist));
-});
+gulp.task('copy:misc', () =>
+gulp.src([
 
-gulp.task('copy:main.css', function () {
-    return gulp.src(dirs.src + '/css/main.css')
-        .pipe(gulp.dest(dirs.dist + '/css'));
-});
+    // Copy all files
+    `${dirs.src}/**/*`,
 
-gulp.task('copy:misc', function () {
-    return gulp.src([
+    // Exclude the following files
+    // (other tasks will handle the copying of these files)
+    `!${dirs.src}/css/main.css`,
+    `!${dirs.src}/index.html`
 
-        // Copy all files
-        dirs.src + '/**/*',
+], {
 
-        // Exclude the following files
-        // (other tasks will handle the copying of these files)
-        '!' + dirs.src + '/css/*.scss',
-        '!' + dirs.src + '/index.html'
+    // Include hidden files by default
+    dot: true
 
-    ], {
+}).pipe(gulp.dest(dirs.dist))
+);
 
-        // Include hidden files by default
-        dot: true
+gulp.task('copy:normalize', () =>
+gulp.src('node_modules/normalize.css/normalize.css')
+    .pipe(gulp.dest(`${dirs.dist}/css`))
+);
 
-    }).pipe(gulp.dest(dirs.dist));
-});
-
-
-var banner = [
-    '/*!\n' +
-    ' * <%= package.name %>\n' +
-    ' * <%= package.title %>\n' +
-    ' * <%= package.url %>\n' +
-    ' * @author <%= package.author %>\n' +
-    ' * @version <%= package.version %>\n' +
-    ' * Copyright ' + new Date().getFullYear() + '. <%= package.license %> licensed.\n' +
-    ' */',
-    '\n'
-].join('');
+gulp.task('lint:js', () =>
+gulp.src([
+    'gulpfile.js',
+    `${dirs.src}/js/*.js`,
+    `${dirs.test}/*.js`
+]).pipe(plugins().jscs())
+    .pipe(plugins().jshint())
+    .pipe(plugins().jshint.reporter('jshint-stylish'))
+    .pipe(plugins().jshint.reporter('fail'))
+);
 
 
 // ---------------------------------------------------------------------
 // | Main tasks                                                        |
 // ---------------------------------------------------------------------
 
-
-gulp.task('js',function(){
-    //return gulp.src([dirs.src + '/js/main.js', dirs.src + '/js/main.js', dirs.src + '/js/main.js'])
-    //    .pipe(header(banner, { package : package }))
-    //    .pipe(gulp.dest(dirs.src + '/js'))
-    //    .pipe(uglify())
-    //    .pipe(header(banner, { package : package }))
-    //    .pipe(rename({ suffix: '.min' }))
-    //    .pipe(gulp.dest(dirs.src + '/js'))
-    //    .pipe(browserSync.reload({stream:true, once: true}));
-
-    return gulp.src([
-        dirs.src + '/js/main.js',
-        './node_modules/jquery/dist/jquery.js'
-        ])
-        .pipe(sourcemaps.init())
-        //.pipe(concat())
-        .pipe(uglify())
-        .pipe(sourcemaps.write('./'))
-        .pipe(header(banner, { package : package }))
-        .pipe(gulp.dest(dirs.src + '/js'))
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest(dirs.src + '/js'))
-        .pipe(browserSync.reload({stream:true, once: true}))
-});
-
-
-gulp.task('css', function () {
-    return gulp.src(dirs.src + '/css/main.scss')
-        .pipe(sass().on('error', sass.logError))
-        .pipe(autoprefixer('last 4 version'))
-        .pipe(gulp.dest(dirs.src + '/css'))
-        .pipe(minifyCSS())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(header(banner, { package : package }))
-        .pipe(gulp.dest(dirs.src + '/css'))
-        .pipe(browserSync.reload({stream:true}));
-});
-
-gulp.task('browser-sync', function() {
-    browserSync.init(null, {
-        server: {
-            baseDir: dirs.src
-        }
-    });
-});
-
-gulp.task('bs-reload', function () {
-    browserSync.reload();
-});
-
-gulp.task('archive', function (done) {
+gulp.task('archive', (done) => {
     runSequence(
-        'build',
-        'archive:create_archive_dir',
-        'archive:zip',
-        done);
+    'build',
+    'archive:create_archive_dir',
+    'archive:zip',
+    done)
 });
 
-gulp.task('build', function (done) {
+gulp.task('build', (done) => {
     runSequence(
-        'clean',
-        'copy',
-        done);
+        ['clean', 'lint:js'],
+    'copy',
+    done)
 });
 
 gulp.task('default', ['build']);
-
-/**
- * `gulp serve`
- * Watches changes to any scss, js and html files
- */
-gulp.task('serve', ['css', 'js', 'browser-sync'], function () {
-    gulp.watch(dirs.src + '/css/*', ['css', 'bs-reload']);
-    gulp.watch(dirs.src + '/*.js', ['js', 'bs-reload']);
-    gulp.watch(dirs.src + '/*.html', ['bs-reload']);
-});

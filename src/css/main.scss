@@ -15,6 +15,9 @@
 /* Helpers */
 @import "helper";
 
+/* Media Queries */
+@import "media-queries";
+
 
 html {
     font-family: 'Lato', sans-serif;
@@ -38,16 +41,23 @@ h2 {
     }
 }
 
-p {
+p, a, label, input {
+    font-size: 0.8em;
     line-height: 1.5em;
     letter-spacing: 0.5px;
+    @include md {
+      font-size: 1em;
+    }
 }
 
 a {
     text-decoration: none;
     color: cornflowerblue;
+    border-bottom: 1px solid white;
+    transition: border 0.3s linear;
     &:hover, &:focus {
-        border-bottom: 1px solid;
+      transition: border 0.01s linear;
+      border-bottom: 1px solid cornflowerblue;
     }
 }
 
@@ -64,30 +74,47 @@ img {
 }
 
 .heading {
-    margin-bottom: 30px;
+    margin: 2em 0;
     .title {
         img {
-            width: 400px;
-            margin: 1em;
+            max-width: 400px;
+            width: 100%;
+            margin: 1em 0;
         }
     }
     .subtitle {
-        margin-bottom: 30px;
+        margin-bottom: 3em;
+        padding: 0;
+        @include sm {
+          padding: 0 120px;
+        }
+        @include md {
+          padding: 0;
+          margin-bottom: 5em;
+        }
     }
 }
 
 .portfolio-items {
     .portfolio-item {
-        margin-bottom: 60px;
+        margin-bottom: 2em;
+        @include md {
+          margin-bottom: 5em;
+        }
         .image{
         }
         .copy {
-            padding: 2em;
+            padding: 2em 0;
+            @include md {
+              padding: 2em;
+            }
             h2 {
                 margin-bottom: 0.3em;
             }
             p {
+              @include md {
                 padding: 0 3em;
+              }
             }
         }
     }
@@ -95,10 +122,17 @@ img {
 
 
 .footer {
-    padding-top: 3em;
-    > div {
-        margin-bottom: 4em;
+    padding-top: 4em;
+    @include md {
+        padding-top: 3em;
     }
+    > div {
+      margin-bottom: 3em;
+    }
+    > div:first-of-type {
+        margin-bottom: 2em;
+    }
+
     li {
         margin-bottom: 0.3rem;
     }
@@ -121,19 +155,52 @@ img {
                 border-bottom: 1px solid rgb(238, 83, 51);
             }
         }
-        .submit-button{
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            -webkit-border-radius: 0;
-            border-radius: 0;
-            border: none;
-            padding: 0;
-            background: url(../img/icons/tick.svg) center center no-repeat;
-            width: 30px;
-            height: 13px;
-            background-size: 60%;
-            display: none;
+        // .submit-button{
+        //     -webkit-appearance: none;
+        //     -moz-appearance: none;
+        //     appearance: none;
+        //     -webkit-border-radius: 0;
+        //     border-radius: 0;
+        //     border: none;
+        //     padding: 0;
+        //     background: url(../img/icons/tick.svg) center center no-repeat;
+        //     width: 30px;
+        //     height: 13px;
+        //     background-size: 60%;
+        //     display: none;
+        // }
+    }
+}
+
+#mc_embed_signup.subscribe {
+    .mc-field-group {
+        position: relative;
+    }
+    div.mce_inline_error {
+      margin: 0;
+      padding: 5px 10px;
+      background-color: transparent;
+      font-weight: normal;
+      z-index: 1;
+      color: red;
+    }
+    .response {
+        padding: 5px 10px !important;
+    }
+    .button {
+        background-color: white;
+        border: 1px solid black;
+        padding: 0.5em 0.3em 0.3em 0.35em;
+        line-height: 1em;
+        z-index: 2;
+        display: inline;
+        text-transform: uppercase;
+        font-size: 0.8em;
+        transition: all 0.3s linear;
+        &:hover {
+            transition: all 0.01s linear;
+            background-color: black;
+            color: white;
         }
     }
 }
@@ -141,15 +208,43 @@ img {
 // PLACEHOLDER FIX
 ::-webkit-input-placeholder {
     color: #DDD;
+    font-size: 0.8em;
+    line-height: 2em;
+    letter-spacing: 0.5px;
+    @include md {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
 }
 :-moz-placeholder { /* Firefox 18- */
     color: #DDD;
+    font-size: 0.8em;
+    line-height: 2em;
+    letter-spacing: 0.5px;
+    @include md {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
 }
 ::-moz-placeholder {  /* Firefox 19+ */
     color: #DDD;
+    font-size: 0.8em;
+    line-height: 2em;
+    letter-spacing: 0.5px;
+    @include md {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
 }
 :-ms-input-placeholder {
     color: #DDD;
+    font-size: 0.8em;
+    line-height: 2em;
+    letter-spacing: 0.5px;
+    @include md {
+      font-size: 1em;
+      line-height: 1.5em;
+    }
 }
 
 

@@ -1,0 +1,57 @@
+/**
+ * Bootstrap responsive breakpoints mixins
+ *
+ */
+$screen-xs: 480px;
+$screen-sm: 680px;
+$screen-md: 992px;
+$screen-lg: 1050px;
+
+@mixin xxs {
+  @media only screen and ( max-width: $screen-xs ) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media only screen and ( min-width: $screen-xs ) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media only screen and ( min-width: $screen-sm ) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media only screen and ( min-width: $screen-md ) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media only screen and ( min-width: $screen-lg ) {
+    @content;
+  }
+}
+
+
+/* ------------ USAGE ------------ */
+
+/*
+
+h1 {
+  font-size: 28px;
+
+  @include sm {
+    font-size: 34px;
+  }
+
+  @include lg {
+    font-size: 48px;
+  }
+}
+
+*/
