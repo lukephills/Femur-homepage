@@ -127,6 +127,12 @@ textarea {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */ }
+
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */ }
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid the additional HTTP request:
@@ -186,8 +192,7 @@ textarea {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px; }
-  .container:before,
-  .container:after {
+  .container:before, .container:after {
     content: " ";
     display: table; }
   .container:after {
@@ -207,8 +212,7 @@ textarea {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px; }
-  .container-fluid:before,
-  .container-fluid:after {
+  .container-fluid:before, .container-fluid:after {
     content: " ";
     display: table; }
   .container-fluid:after {
@@ -217,8 +221,7 @@ textarea {
 .row {
   margin-left: -15px;
   margin-right: -15px; }
-  .row:before,
-  .row:after {
+  .row:before, .row:after {
     content: " ";
     display: table; }
   .row:after {
@@ -704,6 +707,31 @@ textarea {
   .col-lg-offset-12 {
     margin-left: 100%; } }
 
+.embed-responsive {
+  position: relative;
+  display: block;
+  height: 0;
+  padding: 0;
+  overflow: hidden; }
+  .embed-responsive .embed-responsive-item,
+  .embed-responsive iframe,
+  .embed-responsive embed,
+  .embed-responsive object,
+  .embed-responsive video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0; }
+
+.embed-responsive-16by9 {
+  padding-bottom: 56.25%; }
+
+.embed-responsive-4by3 {
+  padding-bottom: 75%; }
+
 /* Mixins */
 /* Helpers */
 /* Helper classes
@@ -713,6 +741,11 @@ textarea {
 
 .float-right {
   float: right; }
+
+.col-center {
+  margin-left: auto;
+  margin-right: auto;
+  float: none; }
 
 .abs {
   position: absolute; }
@@ -822,29 +855,29 @@ h2 {
     h2 {
       font-size: 3rem; } }
 
+p {
+  margin-bottom: 1em; }
+
 p, a, label, input {
-  font-size: 0.8em;
+  font-size: 14px;
   line-height: 1.5em;
   letter-spacing: 0.5px; }
   @media only screen and (min-width: 992px) {
     p, a, label, input {
-      font-size: 1em; } }
+      font-size: 16px; } }
 
 a {
   text-decoration: none;
   color: cornflowerblue;
   border-bottom: 1px solid white;
-  -webkit-transition: border 0.3s linear;
-          transition: border 0.3s linear; }
+  transition: border 0.3s linear; }
   a:hover, a:focus {
-    -webkit-transition: border 0.01s linear;
-            transition: border 0.01s linear;
+    transition: border 0.01s linear;
     border-bottom: 1px solid cornflowerblue; }
 
 a.fancy-underline {
   box-shadow: 0 1px;
-  -webkit-transition: box-shadow 0.25s;
-          transition: box-shadow 0.25s; }
+  transition: box-shadow 0.25s; }
 
 a.fancy-underline:hover {
   box-shadow: 0 2px; }
@@ -859,7 +892,7 @@ img {
     width: 100%;
     margin: 1em 0; }
   .heading .subtitle {
-    margin-bottom: 3em;
+    margin-bottom: 1em;
     padding: 0; }
     @media only screen and (min-width: 680px) {
       .heading .subtitle {
@@ -867,29 +900,48 @@ img {
     @media only screen and (min-width: 992px) {
       .heading .subtitle {
         padding: 0;
-        margin-bottom: 5em; } }
+        margin-bottom: 2em; } }
 
-.portfolio-items .portfolio-item {
+.seperator {
+  margin-bottom: 2em;
+  border-bottom: 1px solid; }
+
+.portfolio-items {
   margin-bottom: 2em; }
+  .portfolio-items .portfolio-item {
+    margin-bottom: 1em; }
+    @media only screen and (min-width: 992px) {
+      .portfolio-items .portfolio-item {
+        margin-bottom: 2em; } }
+    .portfolio-items .portfolio-item:last-of-type .copy {
+      padding: 2em 0 0; }
+    .portfolio-items .portfolio-item .copy {
+      padding: 2em 0; }
+      .portfolio-items .portfolio-item .copy h2 {
+        margin-bottom: 0.3em; }
+      @media only screen and (min-width: 992px) {
+        .portfolio-items .portfolio-item .copy p {
+          padding: 0 0em; } }
   @media only screen and (min-width: 992px) {
-    .portfolio-items .portfolio-item {
-      margin-bottom: 5em; } }
-  .portfolio-items .portfolio-item .copy {
-    padding: 2em 0; }
-    @media only screen and (min-width: 992px) {
-      .portfolio-items .portfolio-item .copy {
-        padding: 2em; } }
-    .portfolio-items .portfolio-item .copy h2 {
-      margin-bottom: 0.3em; }
-    @media only screen and (min-width: 992px) {
-      .portfolio-items .portfolio-item .copy p {
-        padding: 0 3em; } }
+    .portfolio-items {
+      margin-bottom: 3em; } }
+
+.subtitle {
+  margin-bottom: 1em;
+  margin-top: 0.25em; }
+  @media only screen and (min-width: 992px) {
+    .subtitle {
+      margin-bottom: 1em;
+      margin-top: 0.5em; } }
+
+.embed-responsive {
+  margin-bottom: 3em; }
+  @media only screen and (min-width: 992px) {
+    .embed-responsive {
+      margin-bottom: 4em; } }
 
 .footer {
-  padding-top: 4em; }
-  @media only screen and (min-width: 992px) {
-    .footer {
-      padding-top: 3em; } }
+  padding-top: 2em; }
   .footer > div {
     margin-bottom: 3em; }
   .footer > div:first-of-type {
@@ -898,17 +950,19 @@ img {
     margin-bottom: 0.3rem; }
   .footer .social {
     margin-top: -0.8em; }
-  .footer .subscribe label {
-    margin-right: 0.5em; }
-  .footer .subscribe input.subscribe-email {
-    border: none;
-    border-bottom: 1px solid black;
-    font-size: 1rem;
-    outline: none; }
-    .footer .subscribe input.subscribe-email:focus {
-      border-bottom: 1px solid #38ee7f; }
-    .footer .subscribe input.subscribe-email:invalid {
-      border-bottom: 1px solid #ee5333; }
+
+.subscribe label {
+  margin-right: 0.5em; }
+
+.subscribe input.subscribe-email {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  outline: none; }
+  .subscribe input.subscribe-email:focus {
+    border-bottom: 1px solid #38ee7f; }
+  .subscribe input.subscribe-email:invalid {
+    border-bottom: 1px solid #ee5333; }
 
 #mc_embed_signup.subscribe .mc-field-group {
   position: relative; }
@@ -933,11 +987,9 @@ img {
   display: inline;
   text-transform: uppercase;
   font-size: 0.8em;
-  -webkit-transition: all 0.3s linear;
-          transition: all 0.3s linear; }
+  transition: all 0.3s linear; }
   #mc_embed_signup.subscribe .button:hover {
-    -webkit-transition: all 0.01s linear;
-            transition: all 0.01s linear;
+    transition: all 0.01s linear;
     background-color: black;
     color: white; }
 
@@ -982,6 +1034,16 @@ img {
     :-ms-input-placeholder {
       font-size: 1em;
       line-height: 1.5em; } }
+
+.subscribe.subscribe-abs {
+  display: none;
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  z-index: 1; }
+  @media only screen and (min-width: 992px) {
+    .subscribe.subscribe-abs {
+      display: block; } }
 
 .social-icon {
   width: 60px; }

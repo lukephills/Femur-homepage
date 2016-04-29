@@ -7,6 +7,7 @@
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid-framework";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins/grid";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed";
 
 
 /* Mixins */
@@ -40,13 +41,15 @@ h2 {
         font-size: 3rem;
     }
 }
-
+p {
+    margin-bottom: 1em;
+}
 p, a, label, input {
-    font-size: 0.8em;
+    font-size: 14px;
     line-height: 1.5em;
     letter-spacing: 0.5px;
     @include md {
-      font-size: 1em;
+      font-size: 16px;
     }
 }
 
@@ -82,50 +85,79 @@ img {
             margin: 1em 0;
         }
     }
+
     .subtitle {
-        margin-bottom: 3em;
+        margin-bottom: 1em;
         padding: 0;
         @include sm {
-          padding: 0 120px;
+            padding: 0 120px;
         }
         @include md {
-          padding: 0;
-          margin-bottom: 5em;
+            padding: 0;
+            margin-bottom: 2em;
         }
     }
 }
 
+
+.seperator {
+    margin-bottom: 2em;
+    border-bottom: 1px solid;
+}
+
 .portfolio-items {
     .portfolio-item {
-        margin-bottom: 2em;
+        margin-bottom: 1em;
         @include md {
-          margin-bottom: 5em;
+          margin-bottom: 2em;
         }
         .image{
         }
+
+        &:last-of-type .copy {
+            padding: 2em 0 0;
+        }
         .copy {
             padding: 2em 0;
-            @include md {
-              padding: 2em;
-            }
             h2 {
                 margin-bottom: 0.3em;
             }
             p {
               @include md {
-                padding: 0 3em;
+                padding: 0 0em;
               }
             }
         }
     }
+    margin-bottom: 2em;
+    @include md {
+        margin-bottom: 3em;
+    }
+
 }
 
 
-.footer {
-    padding-top: 4em;
+.subtitle {
+    margin-bottom: 1em;
+    margin-top: 0.25em;
     @include md {
-        padding-top: 3em;
+        margin-bottom: 1em;
+        margin-top: 0.5em;
     }
+}
+
+.embed-responsive {
+    margin-bottom: 3em;
+    @include md {
+        margin-bottom: 4em;
+    }
+}
+
+.footer {
+    padding-top: 2em;
+    //@include md {
+    //    padding-top: 3em;
+    //}
     > div {
       margin-bottom: 3em;
     }
@@ -139,37 +171,38 @@ img {
     .social {
         margin-top: -0.8em;
     }
-    .subscribe {
-        label {
-            margin-right: 0.5em;
-        }
-        input.subscribe-email {
-            border: none;
-            border-bottom: 1px solid black;
-            font-size: 1rem;
-            outline: none;
-            &:focus {
-                border-bottom: 1px solid rgb(56, 238, 127);
-            }
-            &:invalid {
-                border-bottom: 1px solid rgb(238, 83, 51);
-            }
-        }
-        // .submit-button{
-        //     -webkit-appearance: none;
-        //     -moz-appearance: none;
-        //     appearance: none;
-        //     -webkit-border-radius: 0;
-        //     border-radius: 0;
-        //     border: none;
-        //     padding: 0;
-        //     background: url(../img/icons/tick.svg) center center no-repeat;
-        //     width: 30px;
-        //     height: 13px;
-        //     background-size: 60%;
-        //     display: none;
-        // }
+}
+
+.subscribe {
+    label {
+        margin-right: 0.5em;
     }
+    input.subscribe-email {
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: 1rem;
+        outline: none;
+        &:focus {
+            border-bottom: 1px solid rgb(56, 238, 127);
+        }
+        &:invalid {
+            border-bottom: 1px solid rgb(238, 83, 51);
+        }
+    }
+    // .submit-button{
+    //     -webkit-appearance: none;
+    //     -moz-appearance: none;
+    //     appearance: none;
+    //     -webkit-border-radius: 0;
+    //     border-radius: 0;
+    //     border: none;
+    //     padding: 0;
+    //     background: url(../img/icons/tick.svg) center center no-repeat;
+    //     width: 30px;
+    //     height: 13px;
+    //     background-size: 60%;
+    //     display: none;
+    // }
 }
 
 #mc_embed_signup.subscribe {
@@ -247,6 +280,17 @@ img {
     }
 }
 
+
+.subscribe.subscribe-abs {
+    display: none;
+    @include md {
+        display: block;
+    }
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    z-index: 1;
+}
 
 
 //OLD

@@ -9,6 +9,13 @@
     float: right;
 }
 
+// Center a bootstrap column
+.col-center {
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+}
+
 .abs { position: absolute }
 .rel { position: relative }
 .hidden {display: none}
