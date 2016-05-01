@@ -225,4 +225,5 @@ gulp.task('serve', ['css', 'js', 'browser-sync'], function () {
     gulp.watch(dirs.src + '/css/*', ['css', 'bs-reload']);
     gulp.watch(dirs.src + '/*.js', ['js', 'bs-reload']);
     gulp.watch(dirs.src + '/*.html', ['bs-reload']);
+    gulp.watch(dirs.src + '/support/*.html', ['bs-reload']);
 });

@@ -37,14 +37,23 @@ h1 {
 }
 h2 {
     font-size: 2rem;
+    line-height: 2em;
     @include md {
         font-size: 3rem;
+    }
+}
+h3 {
+    font-size: 1.5rem;
+    line-height: 2em;
+    margin: 1em 0 0.25em;
+    @include md {
+        font-size: 2rem;
     }
 }
 p {
     margin-bottom: 1em;
 }
-p, a, label, input {
+p, a, label, input, li {
     font-size: 14px;
     line-height: 1.5em;
     letter-spacing: 0.5px;
@@ -70,6 +79,24 @@ a.fancy-underline{
 }
 a.fancy-underline:hover {
     box-shadow: 0 2px;
+}
+
+strong {
+    font-weight: bolder;
+}
+
+.list-section {
+    margin-top: 3rem;
+    ol {
+        list-style-type: decimal;
+        margin-left: 20px;
+        @include md {
+            margin-left: 40px;
+        }
+        li {
+            margin-bottom: 1.25rem;
+        }
+    }
 }
 
 img {
@@ -105,7 +132,7 @@ img {
     border-bottom: 1px solid;
 }
 
-.portfolio-items {
+section {
     .portfolio-item {
         margin-bottom: 1em;
         @include md {
@@ -136,7 +163,12 @@ img {
 
 }
 
-
+.title {
+    margin: 2rem 0 1.5rem;
+    @include md {
+        margin: 3rem 0 1.5rem;
+    }
+}
 .subtitle {
     margin-bottom: 1em;
     margin-top: 0.25em;
