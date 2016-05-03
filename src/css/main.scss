@@ -201,7 +201,17 @@ section {
         margin-bottom: 0.3rem;
     }
     .social {
-        margin-top: -0.8em;
+        li {
+            width: 25px;
+            display: inline-block;
+            margin: 0 0.9rem .3rem;
+            a {
+                transition: none;
+            }
+            a:hover {
+                border-bottom: none;
+            }
+        }
     }
 }
 
