@@ -850,20 +850,29 @@ h1 {
   font-size: 6rem; }
 
 h2 {
-  font-size: 2rem; }
+  font-size: 2rem;
+  line-height: 2em; }
   @media only screen and (min-width: 992px) {
     h2 {
       font-size: 3rem; } }
 
+h3 {
+  font-size: 1.5rem;
+  line-height: 2em;
+  margin: 1em 0 0.25em; }
+  @media only screen and (min-width: 992px) {
+    h3 {
+      font-size: 2rem; } }
+
 p {
   margin-bottom: 1em; }
 
-p, a, label, input {
+p, a, label, input, li {
   font-size: 14px;
   line-height: 1.5em;
   letter-spacing: 0.5px; }
   @media only screen and (min-width: 992px) {
-    p, a, label, input {
+    p, a, label, input, li {
       font-size: 16px; } }
 
 a {
@@ -881,6 +890,20 @@ a.fancy-underline {
 
 a.fancy-underline:hover {
   box-shadow: 0 2px; }
+
+strong {
+  font-weight: bolder; }
+
+.list-section {
+  margin-top: 3rem; }
+  .list-section ol {
+    list-style-type: decimal;
+    margin-left: 20px; }
+    @media only screen and (min-width: 992px) {
+      .list-section ol {
+        margin-left: 40px; } }
+    .list-section ol li {
+      margin-bottom: 1.25rem; }
 
 img {
   width: 100%; }
@@ -906,25 +929,31 @@ img {
   margin-bottom: 2em;
   border-bottom: 1px solid; }
 
-.portfolio-items {
+section {
   margin-bottom: 2em; }
-  .portfolio-items .portfolio-item {
+  section .portfolio-item {
     margin-bottom: 1em; }
     @media only screen and (min-width: 992px) {
-      .portfolio-items .portfolio-item {
+      section .portfolio-item {
         margin-bottom: 2em; } }
-    .portfolio-items .portfolio-item:last-of-type .copy {
+    section .portfolio-item:last-of-type .copy {
       padding: 2em 0 0; }
-    .portfolio-items .portfolio-item .copy {
+    section .portfolio-item .copy {
       padding: 2em 0; }
-      .portfolio-items .portfolio-item .copy h2 {
+      section .portfolio-item .copy h2 {
         margin-bottom: 0.3em; }
       @media only screen and (min-width: 992px) {
-        .portfolio-items .portfolio-item .copy p {
+        section .portfolio-item .copy p {
           padding: 0 0em; } }
   @media only screen and (min-width: 992px) {
-    .portfolio-items {
+    section {
       margin-bottom: 3em; } }
+
+.title {
+  margin: 2rem 0 1.5rem; }
+  @media only screen and (min-width: 992px) {
+    .title {
+      margin: 3rem 0 1.5rem; } }
 
 .subtitle {
   margin-bottom: 1em;

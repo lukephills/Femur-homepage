@@ -1,6 +1,5 @@
 archive
 node_modules
-dist
 public
 .idea/
 .DS_Store
