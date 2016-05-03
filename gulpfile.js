@@ -79,6 +79,7 @@ gulp.task('copy', function () {
             'src/**/*',
             '!src/css/*.scss',
             '!src/js',
+            '.gitignore',
         ])
         .pipe(gulp.dest('dist/'));
 });
