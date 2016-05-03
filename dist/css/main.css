@@ -977,8 +977,14 @@ section {
     margin-bottom: 2em; }
   .footer li {
     margin-bottom: 0.3rem; }
-  .footer .social {
-    margin-top: -0.8em; }
+  .footer .social li {
+    width: 25px;
+    display: inline-block;
+    margin: 0 0.9rem .3rem; }
+    .footer .social li a {
+      transition: none; }
+    .footer .social li a:hover {
+      border-bottom: none; }
 
 .subscribe label {
   margin-right: 0.5em; }
